@@ -5,6 +5,9 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * StateManager class for saving and loading
+ */
 class StateManager {
     private Gson gson;
     final String fileName = "data/saved_game.json";

@@ -5,6 +5,9 @@ import com.google.gson.Gson;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Board class containing the play function
+ */
 class Board {
     Player player1;
     Player player2;

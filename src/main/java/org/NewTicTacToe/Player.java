@@ -1,5 +1,8 @@
 package org.NewTicTacToe;
 
+/**
+ * Player Class To get/set the player Symbol and name
+ */
 class Player {
     private String name; // variable to store the name of the player
     private String symbol; // variable to store the symbol of the player
