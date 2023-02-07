@@ -9,10 +9,17 @@ class StateManager {
     private Gson gson;
     final String fileName = "data/saved_game.json";
 
+    /**
+     * Constructor for StateManager
+     */
     public StateManager() {
         this.gson = new Gson();
     }
 
+    /**
+     * Method to save the game state
+     * @param board The board object to be saved
+     */
     public void saveGame(Board board) {
         File file = new File(fileName);
         if (!file.exists()) {
@@ -35,6 +42,10 @@ class StateManager {
         }
     }
 
+    /**
+     * Method to load the saved game state
+     * @return The board object loaded from the saved game file
+     */
     public Board loadGame() {
         File file = new File(fileName);
         if (!file.exists()) {
@@ -57,6 +68,9 @@ class StateManager {
         return null;
     }
 
+    /**
+     * Method to delete the saved game file
+     */
     public void deleteSaveFile(){
         File file = new File(fileName);
         if (file.exists()) {
@@ -69,7 +83,12 @@ class StateManager {
         } else {
             System.out.println("Save File not found.");
         }
-}
+    }
+
+    /**
+     * Method to save the game state as a JSON string
+     * @param json The JSON string to be saved
+     */
     public void saveState(String json) {
         File file = new File(fileName);
         if (!file.exists()) {

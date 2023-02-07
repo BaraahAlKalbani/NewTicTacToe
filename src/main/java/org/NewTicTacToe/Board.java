@@ -10,7 +10,11 @@ class Board {
     Player player2;
     String[][] grid;
     Player currentPlayer;
-
+    /**
+     * Constructor for the Board class.
+     * @param player1 the first player
+     * @param player2 the second player
+     */
     public Board(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
@@ -18,7 +22,9 @@ class Board {
         this.currentPlayer = player1;
     }
 
-
+    /**
+     * This method allows the players to play the game
+     */
     public void play() {
         StateManager stateManager =new StateManager();
         boolean isFinished = false;
@@ -44,6 +50,11 @@ class Board {
             saveGame();
         }
     }
+    /**
+     * This method gets the player's move
+     * @param currPlayer the current player
+     * @return the player's move in the form of (row, column)
+     */
     private int[] getMove(Player currPlayer) {
         Scanner UserInput = new Scanner(System.in);
         int row,col;
@@ -74,13 +85,15 @@ class Board {
 
 
     private boolean isWinningMove(int row, int col) {
-
+        // Check if there is a winning move in the current grid
         return (grid[row][0] == grid[row][1] && grid[row][1] == grid[row][2]) ||
                 (grid[0][col] == grid[1][col] && grid[1][col] == grid[2][col]) ||
                 (row == col && grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2]) ||
                 (row + col == 2 && grid[0][2] == grid[1][1] && grid[1][1] == grid[2][0]);
     }
+
     private boolean isDraw() {
+        // Check if the current game is a draw
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (grid[i][j] != player1.getSymbol().toString() ||grid[i][j] != player2.getSymbol().toString()) {
@@ -90,7 +103,9 @@ class Board {
         }
         return true;
     }
+
     private void displayGrid() {
+        // Display the current game grid
         System.out.println("------------------------");
         for (int i = 0; i < 3; i++) {
             System.out.print("| ");
@@ -101,7 +116,9 @@ class Board {
             System.out.println("------------------------");
         }
     }
+
     private void saveGame() {
+        // Save the current game state to a file
         Gson gson = new Gson();
         String json = gson.toJson(this);
         StateManager stateManager = new StateManager();
