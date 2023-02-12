@@ -1,14 +1,16 @@
 package org.NewTicTacToe;
 import com.google.gson.Gson;
 import java.util.*;
+import java.io.*;
 /**
  * Board class containing the play function
  */
 class Board {
     Player player1;
     Player player2;
-    static String[][] grid;
+    String[][] grid;
     Player currentPlayer;
+    Boolean player2Bot;
     /**
      * Constructor for the Board class.
      * @param player1 the first player
@@ -17,9 +19,22 @@ class Board {
     public Board(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
+        if(this.player2.getName().toString()=="Bot")
+        {
+            player2Bot=true;
+        }
+        else
+        {
+            player2Bot=false;
+        }
         this.grid = new String[][]{{"0,0", "0,1", "0,2"}, {"1,0", "1,1", "1,2"}, {"2,0", "2,1", "2,2"}};
         this.currentPlayer = player1;
     }
+
+    public Board() {
+    this.grid=getGrid();
+    }
+
     /**
      * This method allows the players to play the game
      */
@@ -54,8 +69,8 @@ class Board {
      * @return the player's move in the form of (row, column)
      */
     private int[] getMove(Player currPlayer) {
-        if (currPlayer instanceof Bot) {
-            return ((Bot)currPlayer).makeMove(grid);
+        if (player2Bot==true && currPlayer==player2) {
+            return (Bot.makeMove(grid));
         } else {
             Scanner UserInput = new Scanner(System.in);
             int row, col;
@@ -82,11 +97,7 @@ class Board {
             return move;
         }
     }
-    public static boolean isEmptyCell(int row, int col) {
-        return grid[row][col].equals("0,0") || grid[row][col].equals("0,1") || grid[row][col].equals("0,2")
-                || grid[row][col].equals("1,0") || grid[row][col].equals("1,1") || grid[row][col].equals("1,2")
-                || grid[row][col].equals("2,0") || grid[row][col].equals("2,1") || grid[row][col].equals("2,2");
-    }
+
     private boolean isWinningMove(int row, int col) {
         // Check if there is a winning move in the current grid
         return (grid[row][0] == grid[row][1] && grid[row][1] == grid[row][2]) ||
@@ -97,14 +108,14 @@ class Board {
 
     private boolean isDraw() {
         // Check if the current game is a draw
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (grid[i][j] != player1.getSymbol().toString() ||grid[i][j] != player2.getSymbol().toString()) {
-                    return false;
-                }
-            }
+        if (!grid[0][0].equals("0,0") && !grid[0][1].equals("0,1") && !grid[0][2].equals("0,2")
+                && !grid[1][0].equals("1,0") && !grid[1][1].equals("1,1") && !grid[1][2].equals("1,2")
+                && !grid[2][0].equals("2,0") && !grid[2][1].equals("2,1") && !grid[2][2].equals("2,2"))
+        {
+            return true;
         }
-        return true;
+
+        return false;
     }
     private void displayGrid() {
         // Display the current game grid
