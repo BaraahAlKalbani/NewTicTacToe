@@ -1,17 +1,13 @@
 package org.NewTicTacToe;
-
 import com.google.gson.Gson;
-
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
+import java.util.*;
 /**
  * Board class containing the play function
  */
 class Board {
     Player player1;
     Player player2;
-    String[][] grid;
+    static String[][] grid;
     Player currentPlayer;
     /**
      * Constructor for the Board class.
@@ -24,7 +20,6 @@ class Board {
         this.grid = new String[][]{{"0,0", "0,1", "0,2"}, {"1,0", "1,1", "1,2"}, {"2,0", "2,1", "2,2"}};
         this.currentPlayer = player1;
     }
-
     /**
      * This method allows the players to play the game
      */
@@ -59,34 +54,39 @@ class Board {
      * @return the player's move in the form of (row, column)
      */
     private int[] getMove(Player currPlayer) {
-        Scanner UserInput = new Scanner(System.in);
-        int row,col;
-
-        while (true) {
-            System.out.println("Player " + currPlayer.getName().toString() + ", enter your move (row column): ");
-            try {
-                row = UserInput.nextInt();
-                col = UserInput.nextInt();
-                if (row >= 0 && row < 3 && col >= 0 && col < 3) {
-                    if (grid[row][col] != player1.getSymbol().toString() && grid[row][col] != player2.getSymbol().toString()) {
-                        break;
+        if (currPlayer instanceof Bot) {
+            return ((Bot)currPlayer).makeMove(grid);
+        } else {
+            Scanner UserInput = new Scanner(System.in);
+            int row, col;
+            while (true) {
+                System.out.println("Player " + currPlayer.getName().toString() + ", enter your move (row column): ");
+                try {
+                    row = UserInput.nextInt();
+                    col = UserInput.nextInt();
+                    if (row >= 0 && row < 3 && col >= 0 && col < 3) {
+                        if (grid[row][col] != player1.getSymbol().toString() && grid[row][col] != player2.getSymbol().toString()) {
+                            break;
+                        } else {
+                            System.out.println("Position already taken. Try again.");
+                        }
                     } else {
-                        System.out.println("Position already taken. Try again.");
+                        System.out.println("Invalid move. Try again.");
                     }
-                } else {
-                    System.out.println("Invalid move. Try again.");
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Try again.");
+                    UserInput.nextLine();
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Try again.");
-                UserInput.nextLine();
             }
+            int[] move = {row, col};
+            return move;
         }
-
-        int[] move = {row, col};
-        return move;
     }
-
-
+    public static boolean isEmptyCell(int row, int col) {
+        return grid[row][col].equals("0,0") || grid[row][col].equals("0,1") || grid[row][col].equals("0,2")
+                || grid[row][col].equals("1,0") || grid[row][col].equals("1,1") || grid[row][col].equals("1,2")
+                || grid[row][col].equals("2,0") || grid[row][col].equals("2,1") || grid[row][col].equals("2,2");
+    }
     private boolean isWinningMove(int row, int col) {
         // Check if there is a winning move in the current grid
         return (grid[row][0] == grid[row][1] && grid[row][1] == grid[row][2]) ||
@@ -106,9 +106,9 @@ class Board {
         }
         return true;
     }
-
     private void displayGrid() {
         // Display the current game grid
+        System.out.println("\n\n");
         System.out.println("------------------------");
         for (int i = 0; i < 3; i++) {
             System.out.print("| ");
@@ -120,6 +120,7 @@ class Board {
         }
     }
 
+
     private void saveGame() {
         // Save the current game state to a file
         Gson gson = new Gson();
@@ -127,8 +128,6 @@ class Board {
         StateManager stateManager = new StateManager();
         stateManager.saveState(json);
     }
-
-
     public Player getPlayer1() {
         return player1;
     }

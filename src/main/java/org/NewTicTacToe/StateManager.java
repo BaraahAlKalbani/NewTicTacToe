@@ -1,24 +1,18 @@
 package org.NewTicTacToe;
-
 import com.google.gson.Gson;
-
 import java.io.*;
-import java.util.Scanner;
-
 /**
  * StateManager class for saving and loading
  */
 class StateManager {
     private Gson gson;
     final String fileName = "data/saved_game.json";
-
     /**
      * Constructor for StateManager
      */
     public StateManager() {
         this.gson = new Gson();
     }
-
     /**
      * Method to save the game state
      * @param board The board object to be saved
@@ -44,7 +38,6 @@ class StateManager {
             e.printStackTrace();
         }
     }
-
     /**
      * Method to load the saved game state
      * @return The board object loaded from the saved game file
@@ -70,7 +63,6 @@ class StateManager {
         }
         return null;
     }
-
     /**
      * Method to delete the saved game file
      */
@@ -87,7 +79,6 @@ class StateManager {
             System.out.println("Save File not found.");
         }
     }
-
     /**
      * Method to save the game state as a JSON string
      * @param json The JSON string to be saved
@@ -109,7 +100,4 @@ class StateManager {
             e.printStackTrace();
         }
     }
-
-
-
 }
