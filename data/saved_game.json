@@ -1,1 +1,1 @@
-{"player1":{"name":"Baraah","symbol":"@"},"player2":{"name":"Bot","symbol":"O"},"grid":[["@","@","0,2"],["1,0","1,1","1,2"],["O","2,1","2,2"]],"currentPlayer":{"name":"Baraah","symbol":"@"},"player2Bot":true}
+{"player1":{"name":"Baraah","symbol":"@"},"player2":{"name":"Bot","symbol":"O"},"grid":[["@","@","@"],["@","O","O"],["O","2,1","@"]],"currentPlayer":{"name":"Baraah","symbol":"@"},"player2Bot":true}

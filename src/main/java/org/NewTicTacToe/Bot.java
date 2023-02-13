@@ -1,7 +1,13 @@
 package org.NewTicTacToe;
-import com.google.gson.*;
-import java.io.*;
-import java.util.*;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Random;
+
 public class Bot extends Player {
     public Bot(String name, String symbol) {
         super(name, symbol);

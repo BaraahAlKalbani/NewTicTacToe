@@ -1,7 +1,9 @@
 package org.NewTicTacToe;
 import com.google.gson.Gson;
-import java.util.*;
-import java.io.*;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /**
  * Board class containing the play function
  */

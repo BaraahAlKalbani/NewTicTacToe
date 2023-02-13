@@ -1,6 +1,8 @@
 package org.NewTicTacToe;
 import com.google.gson.Gson;
+
 import java.io.*;
+
 /**
  * StateManager class for saving and loading
  */
